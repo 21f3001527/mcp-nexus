@@ -1,0 +1,24 @@
+[project]
+name = "mcp-nexus"
+version = "0.1.0"
+description = "MCP Nexus - An Agentic AI Workspace Powered by Model Context Protocol"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp>=1.0.0",
+    "langgraph",
+    "langchain",
+    "langchain-groq",
+    "langchain-community",
+    "python-dotenv",
+    "streamlit",
+    "faiss-cpu",
+    "sentence-transformers",
+    "gitpython",
+    "pydantic",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-asyncio",
+]

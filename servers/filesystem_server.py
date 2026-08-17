@@ -10,9 +10,9 @@ import os
 import fnmatch
 from pathlib import Path
 
-from mcp.server.mcpserver import MCPServer
+from mcp.server.fastmcp import FastMCP
 
-mcp = MCPServer("filesystem-server")
+mcp = FastMCP("filesystem-server")
 
 # Sandbox root: the project directory this server is allowed to touch.
 # Change this to the target repo/project path when running the server.

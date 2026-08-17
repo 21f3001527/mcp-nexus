@@ -7,9 +7,9 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-from mcp.server.mcpserver import MCPServer
+from mcp.server.fastmcp import FastMCP
 
-mcp = MCPServer("knowledge-server")
+mcp = FastMCP("knowledge-server")
 
 BASE_DIR = Path(os.environ.get("MCP_NEXUS_BASE_DIR", ".")).resolve()
 INDEX_DIR = BASE_DIR / "data" / "faiss_index"

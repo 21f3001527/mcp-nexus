@@ -3,9 +3,9 @@ from pathlib import Path
 from git import Repo
 from git.exc import InvalidGitRepositoryError, GitCommandError, NoSuchPathError
 from gitdb.exc import BadName
-from mcp.server.mcpserver import MCPServer
+from mcp.server.fastmcp import FastMCP
 
-mcp = MCPServer("git-server")
+mcp = FastMCP("git-server")
 BASE_DIR = Path(os.environ.get("MCP_NEXUS_BASE_DIR", ".")).resolve()
 
 

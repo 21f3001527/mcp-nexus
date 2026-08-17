@@ -119,9 +119,10 @@ def query_knowledge(question: str, top_k: int = 3) -> str:
     k = min(top_k, index.ntotal)
     scores, indices = index.search(query_vec, k)
 
+    MIN_SCORE = 0.35
     results = []
     for score, idx in zip(scores[0], indices[0]):
-        if idx == -1:
+        if idx == -1 or score < MIN_SCORE:
             continue
         chunk = chunks[idx]
         results.append(
@@ -129,7 +130,11 @@ def query_knowledge(question: str, top_k: int = 3) -> str:
         )
 
     if not results:
-        return "No relevant results found."
+        return (
+            "No sufficiently relevant results found in the knowledge base for "
+            "this question. Do not guess — tell the user this information is "
+            "not available in the ingested documentation."
+        )
 
     return "\n\n---\n\n".join(results)
 

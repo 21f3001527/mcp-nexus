@@ -14,9 +14,16 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("filesystem-server")
 
+
 # Sandbox root: the project directory this server is allowed to touch.
 # Change this to the target repo/project path when running the server.
 BASE_DIR = Path(os.environ.get("MCP_NEXUS_BASE_DIR", ".")).resolve()
+
+
+SENSITIVE_FILE_PATTERNS = (
+    ".env", ".env.local", ".env.production", ".pem", ".key",
+    "credentials", "secrets", ".npmrc", ".pypirc", "id_rsa", "id_ed25519",
+)
 
 
 def _resolve_safe_path(relative_path: str) -> Path:
@@ -33,6 +40,9 @@ def _resolve_safe_path(relative_path: str) -> Path:
         )
     return candidate
 
+def _is_sensitive(path: Path) -> bool:
+    name_lower = path.name.lower()
+    return any(pattern in name_lower for pattern in SENSITIVE_FILE_PATTERNS)
 
 @mcp.tool()
 def list_files(path: str = ".") -> str:
@@ -85,6 +95,9 @@ def read_file(path: str, max_chars: int = 5000) -> str:
         return f"Error: file '{path}' does not exist."
     if target.is_dir():
         return f"Error: '{path}' is a directory, not a file."
+    if _is_sensitive(target):
+        return f"Error: '{path}' is a sensitive file and cannot be read through this tool."
+    
 
     try:
         content = target.read_text(encoding="utf-8", errors="replace")

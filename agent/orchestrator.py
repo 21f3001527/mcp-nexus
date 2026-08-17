@@ -23,8 +23,8 @@ If the knowledge base has not been ingested yet and a question needs it, call
 ingest_docs first."""
 
 
-async def build_agent():
-    tools = await get_all_tools()
+async def build_agent(base_dir: str | None = None):
+    tools = await get_all_tools(base_dir)
 
     llm = ChatGroq(
         model="llama-3.3-70b-versatile",

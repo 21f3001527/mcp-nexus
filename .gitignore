@@ -4,3 +4,4 @@ __pycache__/
 .venv/
 data/faiss_index/
 *.egg-info/
+data/cloned_repos/

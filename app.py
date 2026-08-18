@@ -41,6 +41,10 @@ with st.sidebar:
         "- Knowledge: ingest docs, semantic search"
     )
 
+    st.divider()
+    st.caption("Built by Rajeev Kumar")
+    st.caption("[GitHub](https://github.com/21f3001527) · [LinkedIn](https://linkedin.com/in/rajeev245)")
+
     if load_clicked:
         if repo_url.strip():
             if not is_valid_github_url(repo_url):

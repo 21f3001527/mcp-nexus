@@ -27,7 +27,7 @@
 </p>
 
 ---
-
+🔗 **[Live Demo](https://mcp-nexus-ai.streamlit.app)** | 📂 **[GitHub Repo](https://github.com/21f3001527/mcp-nexus)**
 ## 🎯 What is MCP Nexus?
 
 **MCP Nexus** is an agentic AI workspace that can understand and analyze software projects by combining **three specialized MCP servers** under a single **LangGraph agent**.

@@ -346,3 +346,21 @@ the agent can reason across all three and determine which evidence it needs.
 ### ⭐ MCP Nexus
 
 **MCP • LangGraph • RAG • Tool Calling • Git Intelligence • Codebase Analysis**
+
+## Testing
+
+All three MCP servers have automated pytest coverage, testing tools directly as Python functions (the `@mcp.tool()` decorator leaves the underlying function callable) rather than through the MCP protocol layer, keeping tests fast and independent of subprocess/transport concerns.
+
+| Server | Tests | Coverage |
+|---|---|---|
+| Filesystem | 8 | Happy paths, missing files, truncation, sensitive-file blocking, path-traversal blocking |
+| Git | 8 | Commit listing, diffs, file history, invalid repo/commit handling, path-traversal blocking |
+| Knowledge | 5 | Ingestion, empty-directory handling, relevant retrieval, low-confidence filtering |
+
+**21/21 tests passing.**
+
+```powershell
+uv run pytest tests/ -v
+```
+
+---

@@ -1,0 +1,14 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+mcp<2.0.0,>=1.24.0
+langgraph
+langchain
+langchain-groq
+langchain-community
+langchain-mcp-adapters
+python-dotenv
+streamlit
+faiss-cpu
+sentence-transformers
+gitpython
+pydantic

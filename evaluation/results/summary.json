@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-08-19T10:47:44.789150+00:00",
+  "summary": {
+    "total": 26,
+    "completed": 26,
+    "remaining": 0,
+    "passed": 24,
+    "failed": 2,
+    "errors": 0,
+    "behavioral_pass_rate": 92.31
+  }
+}

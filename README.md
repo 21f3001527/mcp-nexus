@@ -44,12 +44,6 @@
 
 ---
 
-### Contents
-
-[What is MCP Nexus](#what-is-mcp-nexus) · [Key Features](#key-features) · [Architecture](#architecture) · [Screenshots](#screenshots) · [Tech Stack](#tech-stack) · [MCP Servers](#mcp-servers) · [Quick Start](#quick-start) · [Docker](#docker) · [Evaluation](#evaluation) · [Reliability & Security](#reliability--security) · [Project Structure](#project-structure) · [Known Limitations](#known-limitations) · [Future Improvements](#future-improvements) · [Author](#author) · [License](#license)
-
----
-
 ## What is MCP Nexus?
 
 MCP Nexus is an **agentic AI workspace for understanding and analyzing software projects** using the **Model Context Protocol (MCP)**.
@@ -80,44 +74,27 @@ Show me the recent commits in this repository.
 ## Key Features
 
 **🤖 Agentic Project Analysis**
-- LangGraph-based agent orchestration
-- Dynamic MCP tool selection
-- Multi-tool reasoning
-- Grounded responses based on actual tool outputs
+- LangGraph-based agent orchestration with dynamic MCP tool selection
+- Multi-tool reasoning across sources
 
 **📂 Codebase Intelligence**
-- Browse project files and understand project structure
-- Read source code and analyze implementation details
-- Search across the repository
+- Browse, read, and search project source code
+- Understand structure and implementation details
 
 **🌿 Git Intelligence**
-- Inspect recent commits and Git diffs
-- View file-level history
+- Inspect recent commits, diffs, and file-level history
 - Safely handle invalid Git references
 
 **🧠 RAG Knowledge Retrieval**
-- Ingest `.md` and `.txt` documentation
-- Chunk, embed, and store with FAISS
-- Retrieve semantically relevant documentation
-- Reject low-confidence retrieval results
+- Ingest `.md`/`.txt` docs, chunk, embed, and store with FAISS
+- Retrieve semantically relevant documentation, rejecting low-confidence results
 
 **🌐 GitHub Repository Support**
-- Clone and analyze public GitHub repositories
-- Run the same agent workflow against any cloned repo
+- Clone and analyze any public GitHub repository
+- Run the same agent workflow against a cloned repo
 
-**🔐 Security**
-- Path traversal protection and sensitive-file blocking
-- Repository sandboxing, `.git`/`.venv`/`__pycache__` filtering
-- Bounded Git operations
-
-**📊 Automated Evaluation**
-- 21/21 MCP server tests passing
-- 26 agent evaluation scenarios covering tool selection, grounding, and security
-- Resumable evaluation runs
-
-**🐳 Containerized**
-- Docker-ready, reproducible Python environment
-- Suitable for local and cloud deployment
+**🎯 Grounded Responses**
+- Answers are based on actual tool outputs, not invented information
 
 ---
 
@@ -156,14 +133,11 @@ Show me the recent commits in this repository.
 
 **Request flow:**
 
-1. The user asks a natural-language question
-2. The LangGraph agent determines which MCP tools are required
-3. The selected MCP server executes the requested operation
-4. Tool outputs are returned to the agent
-5. The agent uses the returned evidence to formulate the answer
-6. The final response is presented through the Streamlit interface
+1. The user asks a natural-language question in the Streamlit UI
+2. The LangGraph agent decides which MCP tool(s) to call and executes them
+3. The agent grounds its answer in the returned tool output before responding
 
-This allows the system to combine multiple sources when a question requires more than one type of project information.
+The agent can combine multiple servers when a question needs more than one source.
 
 ---
 
@@ -282,31 +256,21 @@ uv run streamlit run app.py
 
 The application will be available at **http://localhost:8501**.
 
-### CLI Usage
+---
 
-MCP Nexus also provides a command-line entry point for debugging and development.
+## CLI Usage
+
+For debugging without the UI:
 
 ```bash
-# Analyze the current project
 uv run python main.py "What does this project do?"
-
-# Ask about Git history
-uv run python main.py "What changed in the last commit?"
-
-# Analyze another local repository
-uv run python main.py "Explain the architecture of this project" --repo /path/to/project
+uv run python main.py "Explain the architecture" --repo /path/to/project
 ```
 
-### GitHub Repository Testing
-
-`test_clone_agent.py` tests the complete clone → analyze workflow against a public GitHub repository:
+For testing the clone → analyze workflow against any public repo:
 
 ```bash
 uv run python test_clone_agent.py https://github.com/octocat/Hello-World "List the files in this repository"
-```
-
-```
-Public GitHub Repository → Clone Repo → MCP Workspace → LangGraph Agent → Tool Calls → Grounded Answer
 ```
 
 ---
@@ -357,7 +321,7 @@ uv run python evaluation/run_tests.py
 
 **Current evaluation:** 26 scenarios · 24 passed · 2 failed · 92.31% overall
 
-The evaluation is intentionally reported without hiding failed cases. The two current failures — `filesystem_path_traversal` and `sensitive_file_block` — occur because the agent *correctly refuses* the sensitive request before calling `read_file`. The evaluation currently expects a tool call in those scenarios, so they're marked as failures even though no sensitive information is exposed. This highlights an important distinction between agent behavior and evaluation criteria.
+The 2 failures occur because the agent correctly refuses a sensitive-file request before calling the tool the test expected — no data is exposed, but the strict test criteria still marks it as a failure.
 
 **Resumable evaluation** — progress is saved during execution, allowing runs to resume after interruptions such as API rate limits or timeouts.
 
@@ -376,47 +340,23 @@ Results are written to `evaluation/results/latest.json` and `evaluation/results/
 | **Grounded Responses** | The agent is instructed to base responses on actual tool outputs rather than inventing repository information |
 | **Retrieval Confidence** | The Knowledge server applies a similarity threshold before returning retrieved documentation |
 
-> The current 0.35 retrieval threshold is heuristic and should be validated against a larger evaluation dataset before production use.
-
 ---
 
 ## Project Structure
 
 ```
 mcp-nexus/
-├── agent/
-│   ├── mcp_client.py
-│   ├── orchestrator.py
-│   ├── repo_utils.py
-│   └── state.py
-├── servers/
-│   ├── filesystem_server.py
-│   ├── git_server.py
-│   └── knowledge_server.py
-├── tests/
-│   ├── test_filesystem_server.py
-│   ├── test_git_server.py
-│   └── test_knowledge_server.py
-├── evaluation/
-│   ├── run_tests.py
-│   ├── test_cases.json
-│   └── results/
-├── data/
-│   ├── docs/          # Project documentation used by the Knowledge server
-│   └── faiss_index/   # Generated FAISS index — ignored by Git, built locally
-├── assets/
-│   ├── landing-page.png
-│   ├── repository-chat.png
-│   └── mcp-nexus-demo.gif
-├── app.py              # Streamlit app (primary entry point)
-├── main.py              # CLI for debugging the agent from the terminal
+├── agent/          # LangGraph orchestrator, MCP client, repo utilities
+├── servers/        # Filesystem, Git, and Knowledge MCP servers
+├── tests/          # MCP server test suite
+├── evaluation/     # Agent evaluation runner, scenarios, results
+├── data/           # Ingested docs + generated FAISS index (git-ignored)
+├── assets/         # README screenshots and demo GIF
+├── app.py          # Streamlit app (primary entry point)
+├── main.py         # CLI for debugging the agent
 ├── test_clone_agent.py  # CLI for testing the clone → agent pipeline
 ├── Dockerfile
-├── .dockerignore
-├── .gitignore
 ├── pyproject.toml
-├── requirements.txt
-├── uv.lock
 ├── LICENSE
 └── README.md
 ```
@@ -425,27 +365,9 @@ mcp-nexus/
 
 ## Known Limitations
 
-- The 0.35 retrieval threshold is heuristic and has not yet been validated at large scale
+- The 0.35 retrieval threshold is heuristic and hasn't been validated at scale
 - Agent tool-calling reliability depends on the selected LLM
-- Very large repositories may require additional optimization for cloning, indexing, and exploration
-- The current agent evaluation contains 26 scenarios and can be expanded with more adversarial and real-world cases
-- The evaluation is currently CLI-based rather than integrated into the Streamlit interface
-- FAISS indexes and cloned repositories are local application data rather than a centralized production vector/database service
-
----
-
-## Future Improvements
-
-- Expand the agent evaluation dataset
-- Add more adversarial security tests
-- Improve retrieval threshold calibration
-- Add repository-level caching
-- Add observability and tracing
-- Support private repository authentication
-- Optimize large-repository indexing
-- Add persistent production storage
-- Add automated CI evaluation
-- Improve deployment architecture for multi-user workloads
+- Evaluation is CLI-based, not yet integrated into the Streamlit UI
 
 ---
 

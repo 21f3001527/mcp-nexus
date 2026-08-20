@@ -56,7 +56,7 @@ Instead of relying on a single tool or a fixed retrieval pipeline, MCP Nexus com
 
 The agent receives a natural-language question, decides which tools are required, executes those tools, and generates a response grounded in the returned information.
 
-MCP Nexus can work with the **current project** or clone and analyze a **public GitHub repository**.
+MCP Nexus can analyze the **current project**, inspect another **local repository**, or clone and analyze a **public GitHub repository**.
 
 **Example questions:**
 
@@ -260,18 +260,30 @@ The application will be available at **http://localhost:8501**.
 
 ## CLI Usage
 
-For debugging without the UI:
+### Debug the Agent Without the UI
+
+Run the MCP Nexus agent directly from the terminal:
 
 ```bash
 uv run python main.py "What does this project do?"
-uv run python main.py "Explain the architecture" --repo /path/to/project
+uv run python main.py "Show me the structure of the agent folder"
+uv run python main.py "What changed in the last commit?"
 ```
 
-For testing the clone → analyze workflow against any public repo:
+To analyze a different local repository:
+
+```bash
+uv run python main.py "Explain this project" --repo /path/to/project
+```
+
+### Test the Clone → Analyze Workflow
+
+Test the agent against any public GitHub repository:
 
 ```bash
 uv run python test_clone_agent.py https://github.com/octocat/Hello-World "List the files in this repository"
 ```
+
 
 ---
 
@@ -374,6 +386,7 @@ mcp-nexus/
 ## Author
 
 **Rajeev Kumar**
+
 B.S. Data Science and Applications — IIT Madras
 
 <p align="left">

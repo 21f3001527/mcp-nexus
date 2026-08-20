@@ -217,40 +217,48 @@ def _needs_project_tools(message: str) -> bool:
     text = message.lower().strip()
 
     project_keywords = (
-        "project",
-        "repository",
-        "repo",
-        "codebase",
-        "code",
-        "file",
-        "files",
-        "commit",
-        "commits",
-        "git",
-        "diff",
-        "history",
-        "documentation",
-        "docs",
-        "knowledge server",
-        "knowledge base",
-        "filesystem",
-        "mcp",
-        "function",
-        "implementation",
-        "source",
-        "python files",
-        "search",
-        "ingest",
-        "faiss",
-        "embedding",
-        "embeddings",
-        "vector",
-        "deployment",
-        "architecture",
-        "orchestrator",
-        "readme",
-    )
-
+    "project",
+    "repository",
+    "repo",
+    "codebase",
+    "code",
+    "file",
+    "files",
+    "folder",
+    "folders",
+    "directory",
+    "directories",
+    "structure",
+    "tree",
+    "list",
+    "commit",
+    "commits",
+    "git",
+    "diff",
+    "history",
+    "documentation",
+    "docs",
+    "knowledge server",
+    "knowledge base",
+    "filesystem",
+    "mcp",
+    "function",
+    "implementation",
+    "source",
+    "python files",
+    "search",
+    "ingest",
+    "faiss",
+    "embedding",
+    "embeddings",
+    "vector",
+    "tree",
+    "list",
+    "deployment",
+    "architecture",
+    "orchestrator",
+    "readme",
+)
     return any(keyword in text for keyword in project_keywords)
 
 
@@ -281,7 +289,10 @@ async def build_agent(base_dir: str | None = None):
     llm = _create_llm()
 
     # Bind only the tools actually discovered from MCP.
-    llm_with_tools = llm.bind_tools(tools)
+    llm_with_tools = llm.bind_tools(
+    tools,
+    tool_choice="auto",
+)
 
     def call_model(state: AgentState):
 

@@ -18,35 +18,44 @@
 <img src="https://img.shields.io/badge/Deployment-Live-2EA44F">
 </p>
 
-🚀 **Deployed on Streamlit Community Cloud — live and ready to use:**
-**🔗 [https://mcp-nexus-ai.streamlit.app](https://mcp-nexus-ai.streamlit.app)**
+<p align="center">
+🚀 <strong>Live on Streamlit Community Cloud:</strong>
+<a href="https://mcp-nexus-ai.streamlit.app">https://mcp-nexus-ai.streamlit.app</a>
+</p>
 
-**[GitHub Repository](https://github.com/21f3001527/mcp-nexus)**
+<p align="center">
+  <img src="assets/mcp-nexus-demo.gif" width="900" alt="MCP Nexus demo — asking natural language questions about a codebase">
+</p>
 
----
+<br>
 
 ### Contents
 
 [What is MCP Nexus](#what-is-mcp-nexus) · [Key Features](#key-features) · [Architecture](#architecture) · [Quick Start](#quick-start) · [Docker](#docker) · [Screenshots](#screenshots) · [Tech Stack](#tech-stack) · [MCP Servers](#mcp-servers) · [Reliability & Security](#reliability--security) · [Evaluation](#evaluation) · [Project Structure](#project-structure) · [Known Limitations](#known-limitations) · [Author](#author)
 
----
+<br>
 
 ## What is MCP Nexus?
 
-MCP Nexus is an agentic AI workspace that understands and analyzes software projects by combining three specialized MCP servers — Filesystem, Git, and Knowledge (RAG) — under a single LangGraph agent. Ask a natural-language question and the agent decides which tools and sources it needs, then produces a grounded answer.
+MCP Nexus is an agentic AI workspace that understands and analyzes software projects by combining three specialized MCP servers — Filesystem, Git, and Knowledge (RAG) — under a single LangGraph agent.
+
+Ask a natural-language question and the agent decides which tools and sources it needs, then produces a grounded answer:
 
 ```
-"What does this project do?"                  "What changed in the last commit?"
-"How does this function handle errors?"        "How does the Knowledge server retrieve information?"
+"What does this project do?"
+"How does this function handle errors?"
+"What changed in the last commit?"
+"How does the Knowledge server retrieve information?"
 ```
 
 Works on the current project or any public GitHub repo.
 
----
+<br>
 
 ## Key Features
 
 **Core Capabilities**
+
 - **Agentic Analysis** — LangGraph agent dynamically selects and chains MCP tools
 - **Codebase Exploration** — browse, read, and search project source code
 - **Git Intelligence** — analyze commits, diffs, and file history
@@ -55,13 +64,15 @@ Works on the current project or any public GitHub repo.
 - **Grounded Answers** — responses are based on actual tool outputs, not guesses
 
 **Security & Reliability**
+
 - **Secure by Design** — path traversal protection and sensitive-file blocking
 - **Automated Evaluation** — 26-scenario suite (run via `evaluation/` scripts) testing tool selection, grounding, and security
 
 **Deployment**
+
 - **Containerized** — Docker-ready for consistent local or cloud deployment
 
----
+<br>
 
 ## Architecture
 
@@ -80,7 +91,7 @@ Works on the current project or any public GitHub repo.
 - Each server returns real tool output — file contents, commit data, or retrieved documentation
 - The agent grounds its answer in that output before responding
 
----
+<br>
 
 ## Quick Start
 
@@ -94,20 +105,24 @@ uv run streamlit run app.py
 
 Or just try the **[live demo](https://mcp-nexus-ai.streamlit.app)** — no setup required.
 
-**Debugging without the UI** — `main.py` runs the agent directly from the terminal and prints the full message trace, including which tools were called:
+**Debugging without the UI**
+
+`main.py` runs the agent directly from the terminal and prints the full message trace, including which tools were called:
 
 ```bash
 uv run python main.py "What does this project do?"
 uv run python main.py "What changed in the last commit?" --repo /path/to/other/project
 ```
 
-**Testing against an external repo** — `test_clone_agent.py` verifies the full clone → agent pipeline works end-to-end on any public GitHub repo:
+**Testing against an external repo**
+
+`test_clone_agent.py` verifies the full clone → agent pipeline works end-to-end on any public GitHub repo:
 
 ```bash
 uv run python test_clone_agent.py https://github.com/octocat/Hello-World "List the files in this repo"
 ```
 
----
+<br>
 
 ## Docker
 
@@ -118,26 +133,23 @@ docker run --env-file .env -p 8502:8501 mcp-nexus
 
 Open **http://localhost:8502** — Streamlit runs inside the container on port 8501, mapped to 8502 on the host.
 
----
+<br>
 
 ## Screenshots
 
 ### Landing Page
+
 <p align="center">
   <img src="assets/landing-page.png" width="900" alt="MCP Nexus landing page">
 </p>
 
 ### Repository Chat
+
 <p align="center">
   <img src="assets/repository-chat.png" width="900" alt="MCP Nexus repository analysis chat">
 </p>
 
-### Demo
-<p align="center">
-  <img src="assets/mcp-nexus-demo.gif" width="900" alt="MCP Nexus demo">
-</p>
-
----
+<br>
 
 ## Tech Stack
 
@@ -155,7 +167,7 @@ Open **http://localhost:8502** — Streamlit runs inside the container on port 8
 | Containerization | Docker | Reproducible builds and deployment |
 | Package Management | uv | Dependency and environment management |
 
----
+<br>
 
 ## MCP Servers
 
@@ -167,21 +179,29 @@ Open **http://localhost:8502** — Streamlit runs inside the container on port 8
 
 Low-confidence retrieval results are discarded rather than passed to the agent as reliable evidence.
 
----
+<br>
 
 ## Reliability & Security
 
-Sensitive files (`.env`, `.pem`, `id_rsa`) are blocked, paths are sandboxed, and `.git`/`.venv`/`__pycache__` are filtered from exploration. Several real failure modes were found and fixed during development — e.g. malformed tool calls (fixed by switching to gpt-oss-120b), weak multi-source grounding (fixed with stricter evidence instructions), and repeated doc ingestion (fixed with idempotent handling).
+Sensitive files (`.env`, `.pem`, `id_rsa`) are blocked, paths are sandboxed, and `.git`/`.venv`/`__pycache__` are filtered from exploration.
+
+Several real failure modes were found and fixed during development:
+
+- Malformed tool calls → fixed by switching to gpt-oss-120b
+- Weak multi-source grounding → fixed with stricter evidence instructions
+- Repeated doc ingestion → fixed with idempotent handling
 
 > The 0.35 retrieval threshold is heuristic and should be validated against a larger dataset before production use.
 
----
+<br>
 
 ## Evaluation
 
 Automated evaluation is available through the `evaluation/` scripts. This is a development and testing component — it runs from the command line, not from the deployed app.
 
-Two layers of testing: **server tests** check whether tools work correctly; **agent evaluation** checks whether the agent *uses* them correctly (tool selection, grounding, multi-tool reasoning, security boundaries).
+Two layers of testing:
+- **Server tests** check whether tools work correctly
+- **Agent evaluation** checks whether the agent *uses* them correctly (tool selection, grounding, multi-tool reasoning, security boundaries)
 
 | Suite | Result |
 |---|---|
@@ -199,29 +219,42 @@ uv run python evaluation/run_tests.py      # agent evaluation
 
 Results: `evaluation/results/latest.json`, `evaluation/results/summary.json`
 
----
+<br>
 
 ## Project Structure
 
 ```
 mcp-nexus/
-├── agent/            state.py, mcp_client.py, orchestrator.py, repo_utils.py
-├── servers/          filesystem_server.py, git_server.py, knowledge_server.py
-├── tests/            test_filesystem_server.py, test_git_server.py, test_knowledge_server.py
-├── evaluation/        run_tests.py, test_cases.json, results/
+├── agent/
+│   ├── state.py
+│   ├── mcp_client.py
+│   ├── orchestrator.py
+│   └── repo_utils.py
+├── servers/
+│   ├── filesystem_server.py
+│   ├── git_server.py
+│   └── knowledge_server.py
+├── tests/
+│   ├── test_filesystem_server.py
+│   ├── test_git_server.py
+│   └── test_knowledge_server.py
+├── evaluation/
+│   ├── run_tests.py
+│   ├── test_cases.json
+│   └── results/
 ├── data/
 │   ├── docs/          # Project documentation used by the Knowledge server
 │   └── faiss_index/   # Generated FAISS index — ignored by Git, built locally on first run
-├── assets/            demo GIF and screenshots used in this README
-├── app.py             Streamlit app (primary entry point)
-├── main.py            CLI for debugging the agent from the terminal
-├── test_clone_agent.py  CLI for testing the clone → agent pipeline on an external repo
+├── assets/             # Demo GIF and screenshots used in this README
+├── app.py              # Streamlit app (primary entry point)
+├── main.py             # CLI for debugging the agent from the terminal
+├── test_clone_agent.py # CLI for testing the clone → agent pipeline on an external repo
 ├── Dockerfile
 ├── pyproject.toml
 └── README.md
 ```
 
----
+<br>
 
 ## Known Limitations
 
@@ -230,7 +263,7 @@ mcp-nexus/
 - Very large repositories may need extra optimization for cloning/indexing
 - 26-scenario eval suite is broad but still relatively small
 
----
+<br>
 
 ## Author
 
@@ -239,7 +272,7 @@ B.S. Data Science and Applications — IIT Madras
 
 [GitHub](https://github.com/21f3001527) · [LinkedIn](https://linkedin.com/in/rajeev245)
 
----
+<br>
 
 ## License
 

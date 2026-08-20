@@ -3,137 +3,169 @@
 **An Agentic AI Workspace Powered by the Model Context Protocol**
 
 <p align="center">
-<img src="https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white">
-<img src="https://img.shields.io/badge/MCP-FastMCP-8B5CF6">
-<img src="https://img.shields.io/badge/LangGraph-Agent-1C3C3C?logo=langchain">
-<img src="https://img.shields.io/badge/Groq-gpt--oss--120b-F55036">
-<img src="https://img.shields.io/badge/FAISS-Vector%20Search-0468D7">
-<img src="https://img.shields.io/badge/Streamlit-UI-FF4B4B?logo=streamlit">
-<img src="https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white">
-<img src="https://img.shields.io/badge/License-MIT-yellow">
-<br>
-<img src="https://img.shields.io/badge/Server%20Tests-21%2F21%20passing-2EA44F">
-<img src="https://img.shields.io/badge/Agent%20Evaluation-92.31%25-2EA44F">
-<img src="https://img.shields.io/badge/Security-Hardened-2EA44F">
-<img src="https://img.shields.io/badge/Deployment-Live-2EA44F">
+  <img src="https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/MCP-FastMCP-8B5CF6?style=for-the-badge">
+  <img src="https://img.shields.io/badge/LangGraph-Agent-1C3C3C?style=for-the-badge&logo=langchain">
+  <img src="https://img.shields.io/badge/Groq-gpt--oss--120b-F55036?style=for-the-badge">
 </p>
 
 <p align="center">
-🚀 <strong>Live on Streamlit Community Cloud:</strong>
-<a href="https://mcp-nexus-ai.streamlit.app">https://mcp-nexus-ai.streamlit.app</a>
+  <img src="https://img.shields.io/badge/FAISS-Vector%20Search-0468D7?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Streamlit-UI-FF4B4B?style=for-the-badge&logo=streamlit">
+  <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge">
 </p>
 
 <p align="center">
-  <img src="assets/mcp-nexus-demo.gif" width="900" alt="MCP Nexus demo — asking natural language questions about a codebase">
+  <img src="https://img.shields.io/badge/Server%20Tests-21%2F21%20passing-2EA44F?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Agent%20Evaluation-92.31%25-2EA44F?style=for-the-badge">
 </p>
 
-<br>
+<p align="center">
+  <img src="https://img.shields.io/badge/Security-Hardened-2EA44F?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Deployment-Live-2EA44F?style=for-the-badge">
+</p>
+
+<p align="center">
+  An AI-powered workspace for understanding software projects through
+  <strong>Filesystem, Git, and RAG-powered Knowledge MCP servers</strong>.
+</p>
+
+<p align="center">
+  🚀 <strong>Live Demo:</strong>
+  <a href="https://mcp-nexus-ai.streamlit.app">mcp-nexus-ai.streamlit.app</a>
+  &nbsp;•&nbsp;
+  <a href="https://github.com/21f3001527/mcp-nexus">GitHub Repository</a>
+</p>
+
+<p align="center">
+  <img src="assets/mcp-nexus-demo.gif" width="900" alt="MCP Nexus demo">
+</p>
+
+---
 
 ### Contents
 
-[What is MCP Nexus](#what-is-mcp-nexus) · [Key Features](#key-features) · [Architecture](#architecture) · [Quick Start](#quick-start) · [Docker](#docker) · [Screenshots](#screenshots) · [Tech Stack](#tech-stack) · [MCP Servers](#mcp-servers) · [Reliability & Security](#reliability--security) · [Evaluation](#evaluation) · [Project Structure](#project-structure) · [Known Limitations](#known-limitations) · [Author](#author)
+[What is MCP Nexus](#what-is-mcp-nexus) · [Key Features](#key-features) · [Architecture](#architecture) · [Screenshots](#screenshots) · [Tech Stack](#tech-stack) · [MCP Servers](#mcp-servers) · [Quick Start](#quick-start) · [Docker](#docker) · [Evaluation](#evaluation) · [Reliability & Security](#reliability--security) · [Project Structure](#project-structure) · [Known Limitations](#known-limitations) · [Future Improvements](#future-improvements) · [Author](#author) · [License](#license)
 
-<br>
+---
 
 ## What is MCP Nexus?
 
-MCP Nexus is an agentic AI workspace that understands and analyzes software projects by combining three specialized MCP servers — Filesystem, Git, and Knowledge (RAG) — under a single LangGraph agent.
+MCP Nexus is an **agentic AI workspace for understanding and analyzing software projects** using the **Model Context Protocol (MCP)**.
 
-Ask a natural-language question and the agent decides which tools and sources it needs, then produces a grounded answer:
+Instead of relying on a single tool or a fixed retrieval pipeline, MCP Nexus combines three specialized MCP servers under a **LangGraph-based agent**:
 
+- **Filesystem MCP** — explores and searches project files
+- **Git MCP** — analyzes commits, diffs, and file history
+- **Knowledge MCP** — performs semantic retrieval over project documentation
+
+The agent receives a natural-language question, decides which tools are required, executes those tools, and generates a response grounded in the returned information.
+
+MCP Nexus can work with the **current project** or clone and analyze a **public GitHub repository**.
+
+**Example questions:**
+
+```text
+What does this project do?
+What changed in the last commit?
+How does this function handle errors?
+How does the Knowledge server retrieve information?
+Which files are responsible for Git operations?
+Show me the recent commits in this repository.
 ```
-"What does this project do?"
-"How does this function handle errors?"
-"What changed in the last commit?"
-"How does the Knowledge server retrieve information?"
-```
 
-Works on the current project or any public GitHub repo.
-
-<br>
+---
 
 ## Key Features
 
-**Core Capabilities**
+**🤖 Agentic Project Analysis**
+- LangGraph-based agent orchestration
+- Dynamic MCP tool selection
+- Multi-tool reasoning
+- Grounded responses based on actual tool outputs
 
-- **Agentic Analysis** — LangGraph agent dynamically selects and chains MCP tools
-- **Codebase Exploration** — browse, read, and search project source code
-- **Git Intelligence** — analyze commits, diffs, and file history
-- **RAG Knowledge** — semantic search across project documentation
-- **GitHub Support** — clone and analyze any public repository
-- **Grounded Answers** — responses are based on actual tool outputs, not guesses
+**📂 Codebase Intelligence**
+- Browse project files and understand project structure
+- Read source code and analyze implementation details
+- Search across the repository
 
-**Security & Reliability**
+**🌿 Git Intelligence**
+- Inspect recent commits and Git diffs
+- View file-level history
+- Safely handle invalid Git references
 
-- **Secure by Design** — path traversal protection and sensitive-file blocking
-- **Automated Evaluation** — 26-scenario suite (run via `evaluation/` scripts) testing tool selection, grounding, and security
+**🧠 RAG Knowledge Retrieval**
+- Ingest `.md` and `.txt` documentation
+- Chunk, embed, and store with FAISS
+- Retrieve semantically relevant documentation
+- Reject low-confidence retrieval results
 
-**Deployment**
+**🌐 GitHub Repository Support**
+- Clone and analyze public GitHub repositories
+- Run the same agent workflow against any cloned repo
 
-- **Containerized** — Docker-ready for consistent local or cloud deployment
+**🔐 Security**
+- Path traversal protection and sensitive-file blocking
+- Repository sandboxing, `.git`/`.venv`/`__pycache__` filtering
+- Bounded Git operations
 
-<br>
+**📊 Automated Evaluation**
+- 21/21 MCP server tests passing
+- 26 agent evaluation scenarios covering tool selection, grounding, and security
+- Resumable evaluation runs
+
+**🐳 Containerized**
+- Docker-ready, reproducible Python environment
+- Suitable for local and cloud deployment
+
+---
 
 ## Architecture
 
 ```
-      User → Streamlit Chat → LangGraph Agent (gpt-oss-120b via Groq)
-                                      │
-                                MCP Protocol
-                  ┌───────────────────┼───────────────────┐
-                  ▼                   ▼                   ▼
-            Filesystem MCP        Git MCP           Knowledge MCP
-            Project Files      Git History          FAISS + Docs
+                         ┌──────────────────────┐
+                         │        User          │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │     Streamlit UI      │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │   LangGraph Agent     │
+                         │    gpt-oss-120b       │
+                         │       via Groq        │
+                         └──────────┬───────────┘
+                                    │
+                              MCP Protocol
+                                    │
+              ┌─────────────────────┼─────────────────────┐
+              │                     │                     │
+              ▼                     ▼                     ▼
+       ┌─────────────┐       ┌─────────────┐       ┌─────────────┐
+       │ Filesystem  │       │     Git     │       │  Knowledge  │
+       │     MCP     │       │     MCP     │       │     MCP     │
+       └──────┬──────┘       └──────┬──────┘       └──────┬──────┘
+              │                     │                     │
+              ▼                     ▼                     ▼
+        Project Files          Git History          FAISS + Docs
 ```
 
-- The user asks a question in the Streamlit chat
-- The LangGraph agent decides which MCP server(s) the question needs
-- Each server returns real tool output — file contents, commit data, or retrieved documentation
-- The agent grounds its answer in that output before responding
+**Request flow:**
 
-<br>
+1. The user asks a natural-language question
+2. The LangGraph agent determines which MCP tools are required
+3. The selected MCP server executes the requested operation
+4. Tool outputs are returned to the agent
+5. The agent uses the returned evidence to formulate the answer
+6. The final response is presented through the Streamlit interface
 
-## Quick Start
+This allows the system to combine multiple sources when a question requires more than one type of project information.
 
-```bash
-git clone https://github.com/21f3001527/mcp-nexus.git
-cd mcp-nexus
-uv sync
-echo "GROQ_API_KEY=your_key_here" > .env
-uv run streamlit run app.py
-```
-
-Or just try the **[live demo](https://mcp-nexus-ai.streamlit.app)** — no setup required.
-
-**Debugging without the UI**
-
-`main.py` runs the agent directly from the terminal and prints the full message trace, including which tools were called:
-
-```bash
-uv run python main.py "What does this project do?"
-uv run python main.py "What changed in the last commit?" --repo /path/to/other/project
-```
-
-**Testing against an external repo**
-
-`test_clone_agent.py` verifies the full clone → agent pipeline works end-to-end on any public GitHub repo:
-
-```bash
-uv run python test_clone_agent.py https://github.com/octocat/Hello-World "List the files in this repo"
-```
-
-<br>
-
-## Docker
-
-```bash
-docker build -t mcp-nexus .
-docker run --env-file .env -p 8502:8501 mcp-nexus
-```
-
-Open **http://localhost:8502** — Streamlit runs inside the container on port 8501, mapped to 8502 on the host.
-
-<br>
+---
 
 ## Screenshots
 
@@ -143,93 +175,220 @@ Open **http://localhost:8502** — Streamlit runs inside the container on port 8
   <img src="assets/landing-page.png" width="900" alt="MCP Nexus landing page">
 </p>
 
-### Repository Chat
+### Repository Analysis
 
 <p align="center">
   <img src="assets/repository-chat.png" width="900" alt="MCP Nexus repository analysis chat">
 </p>
 
-<br>
+---
 
 ## Tech Stack
 
 | Category | Technology | Purpose |
 |---|---|---|
 | Language | Python 3.12 | Application development |
-| Tool Protocol | FastMCP | Standardized MCP server/tool interface |
+| Tool Protocol | FastMCP | MCP server and tool interface |
 | Agent Orchestration | LangGraph | Agent state and tool-calling workflow |
-| LLM Orchestration | LangChain | LLM workflows and chains |
-| LLM Inference | Groq (gpt-oss-120b) | Fast LLM inference |
-| Embeddings | Sentence Transformers (all-MiniLM-L6-v2) | Local document embeddings |
-| Vector Store | FAISS | Persistent semantic retrieval |
-| Git Operations | GitPython | Commit, diff, and history analysis |
-| UI | Streamlit | Interactive chat interface |
-| Containerization | Docker | Reproducible builds and deployment |
-| Package Management | uv | Dependency and environment management |
+| LLM Framework | LangChain | LLM and tool integration |
+| LLM Inference | Groq | Fast inference with gpt-oss-120b |
+| Embeddings | Sentence Transformers | Local document embeddings |
+| Embedding Model | all-MiniLM-L6-v2 | Text representation for semantic search |
+| Vector Store | FAISS | Persistent vector similarity search |
+| Git Operations | GitPython | Repository and Git analysis |
+| UI | Streamlit | Interactive web interface |
+| Containerization | Docker | Reproducible deployment |
+| Package Management | uv | Python dependency management |
 
-<br>
+---
 
 ## MCP Servers
 
-| Server | Tools | Notes |
-|---|---|---|
-| **Filesystem** | `list_files`, `read_file`, `search_files` | Path traversal protection, sensitive-file denylist, repo sandboxing |
-| **Git** | `get_recent_commits`, `get_diff`, `get_file_history` | Validated, bounded inputs; handles invalid refs safely |
-| **Knowledge** | `ingest_docs`, `query_knowledge` | RAG over `.md`/`.txt` docs — chunking → embeddings → FAISS → 0.35 similarity threshold |
+MCP Nexus uses three specialized MCP servers.
 
-Low-confidence retrieval results are discarded rather than passed to the agent as reliable evidence.
+### 1. Filesystem MCP
 
-<br>
+Provides controlled access to project files.
 
-## Reliability & Security
+| Tool | Purpose |
+|---|---|
+| `list_files` | Explore repository structure |
+| `read_file` | Read project files |
+| `search_files` | Search for content across files |
 
-Sensitive files (`.env`, `.pem`, `id_rsa`) are blocked, paths are sandboxed, and `.git`/`.venv`/`__pycache__` are filtered from exploration.
+Security controls include path validation, sensitive-file blocking, and repository sandboxing.
 
-Several real failure modes were found and fixed during development:
+### 2. Git MCP
 
-- Malformed tool calls → fixed by switching to gpt-oss-120b
-- Weak multi-source grounding → fixed with stricter evidence instructions
-- Repeated doc ingestion → fixed with idempotent handling
+Provides Git repository intelligence.
 
-> The 0.35 retrieval threshold is heuristic and should be validated against a larger dataset before production use.
+| Tool | Purpose |
+|---|---|
+| `get_recent_commits` | Inspect recent commits |
+| `get_diff` | Analyze repository changes |
+| `get_file_history` | Inspect file-level Git history |
 
-<br>
+Inputs are validated and bounded to prevent unsafe repository operations.
+
+### 3. Knowledge MCP
+
+Provides RAG-based documentation retrieval.
+
+| Tool | Purpose |
+|---|---|
+| `ingest_docs` | Chunk and index project documentation |
+| `query_knowledge` | Retrieve relevant documentation |
+
+**Retrieval pipeline:**
+
+```
+Documents → Chunking → Sentence Transformers → Embeddings → FAISS Index → Similarity Search → Relevant Context
+```
+
+The current retrieval threshold is **0.35**. Results below this threshold are discarded rather than being treated as reliable evidence.
+
+---
+
+## Quick Start
+
+**Prerequisites:** Python 3.12 · Git · uv · Groq API key
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/21f3001527/mcp-nexus.git
+cd mcp-nexus
+```
+
+**2. Install dependencies**
+
+```bash
+uv sync
+```
+
+**3. Configure environment variables**
+
+Create a `.env` file:
+
+```
+GROQ_API_KEY=your_groq_api_key
+```
+
+**4. Start the application**
+
+```bash
+uv run streamlit run app.py
+```
+
+The application will be available at **http://localhost:8501**.
+
+### CLI Usage
+
+MCP Nexus also provides a command-line entry point for debugging and development.
+
+```bash
+# Analyze the current project
+uv run python main.py "What does this project do?"
+
+# Ask about Git history
+uv run python main.py "What changed in the last commit?"
+
+# Analyze another local repository
+uv run python main.py "Explain the architecture of this project" --repo /path/to/project
+```
+
+### GitHub Repository Testing
+
+`test_clone_agent.py` tests the complete clone → analyze workflow against a public GitHub repository:
+
+```bash
+uv run python test_clone_agent.py https://github.com/octocat/Hello-World "List the files in this repository"
+```
+
+```
+Public GitHub Repository → Clone Repo → MCP Workspace → LangGraph Agent → Tool Calls → Grounded Answer
+```
+
+---
+
+## Docker
+
+**Build the image**
+
+```bash
+docker build -t mcp-nexus .
+```
+
+**Run the container**
+
+```bash
+docker run --env-file .env -p 8502:8501 mcp-nexus
+```
+
+Open **http://localhost:8502** — the application listens on port 8501 inside the container, mapped to port 8502 on the host.
+
+**The Docker image includes:** Python 3.12, MCP dependencies, LangGraph/LangChain, Sentence Transformers, FAISS, GitPython, Streamlit, and the application source code.
+
+The `.dockerignore` file excludes development-only files such as virtual environments, Git metadata, caches, and generated evaluation results.
+
+---
 
 ## Evaluation
 
-Automated evaluation is available through the `evaluation/` scripts. This is a development and testing component — it runs from the command line, not from the deployed app.
+MCP Nexus includes two levels of automated testing, run from the command line — evaluation is a development/testing component, not part of the deployed Streamlit UI.
 
-Two layers of testing:
-- **Server tests** check whether tools work correctly
-- **Agent evaluation** checks whether the agent *uses* them correctly (tool selection, grounding, multi-tool reasoning, security boundaries)
+### 1. MCP Server Tests
 
-| Suite | Result |
-|---|---|
-| MCP Server Tests | 21/21 passing |
-| Agent Evaluation (26 scenarios) | 24 passed · 2 failed · 92.31% |
-
-The 2 failures (`filesystem_path_traversal`, `sensitive_file_block`) happen because the agent *correctly refuses* the sensitive request before ever calling `read_file` — the test expected the tool call, so it's flagged as a failure even though nothing was exposed. Results aren't adjusted to force a perfect score; a failed case is treated as a signal, not a bug to hide.
-
-Evaluation is **resumable** — progress saves after every test, so rate limits or timeouts don't require restarting the whole suite.
+Verifies that the individual MCP servers behave correctly.
 
 ```bash
-uv run pytest tests/ -v                    # server tests
-uv run python evaluation/run_tests.py      # agent evaluation
+uv run pytest tests/ -v
 ```
 
-Results: `evaluation/results/latest.json`, `evaluation/results/summary.json`
+**Current result:** 21/21 tests passing
 
-<br>
+### 2. Agent Evaluation
+
+Tests whether the agent uses the available MCP tools correctly — tool selection, filesystem reasoning, Git reasoning, knowledge retrieval, multi-tool workflows, grounding, security boundaries, and unsupported requests.
+
+```bash
+uv run python evaluation/run_tests.py
+```
+
+**Current evaluation:** 26 scenarios · 24 passed · 2 failed · 92.31% overall
+
+The evaluation is intentionally reported without hiding failed cases. The two current failures — `filesystem_path_traversal` and `sensitive_file_block` — occur because the agent *correctly refuses* the sensitive request before calling `read_file`. The evaluation currently expects a tool call in those scenarios, so they're marked as failures even though no sensitive information is exposed. This highlights an important distinction between agent behavior and evaluation criteria.
+
+**Resumable evaluation** — progress is saved during execution, allowing runs to resume after interruptions such as API rate limits or timeouts.
+
+Results are written to `evaluation/results/latest.json` and `evaluation/results/summary.json`.
+
+---
+
+## Reliability & Security
+
+| Safeguard | Description |
+|---|---|
+| **Path Security** | Filesystem operations resolve requested paths against the configured project directory and reject paths that escape the allowed workspace |
+| **Sensitive File Protection** | Files such as `.env`, `.pem`, and `id_rsa` are blocked from being exposed through filesystem tools |
+| **Repository Filtering** | The filesystem server ignores `.git`, `.venv`, `__pycache__`, and `node_modules` |
+| **Git Input Validation** | Git operations use bounded inputs and handle invalid references safely |
+| **Grounded Responses** | The agent is instructed to base responses on actual tool outputs rather than inventing repository information |
+| **Retrieval Confidence** | The Knowledge server applies a similarity threshold before returning retrieved documentation |
+
+> The current 0.35 retrieval threshold is heuristic and should be validated against a larger evaluation dataset before production use.
+
+---
 
 ## Project Structure
 
 ```
 mcp-nexus/
 ├── agent/
-│   ├── state.py
 │   ├── mcp_client.py
 │   ├── orchestrator.py
-│   └── repo_utils.py
+│   ├── repo_utils.py
+│   └── state.py
 ├── servers/
 │   ├── filesystem_server.py
 │   ├── git_server.py
@@ -244,36 +403,65 @@ mcp-nexus/
 │   └── results/
 ├── data/
 │   ├── docs/          # Project documentation used by the Knowledge server
-│   └── faiss_index/   # Generated FAISS index — ignored by Git, built locally on first run
-├── assets/             # Demo GIF and screenshots used in this README
+│   └── faiss_index/   # Generated FAISS index — ignored by Git, built locally
+├── assets/
+│   ├── landing-page.png
+│   ├── repository-chat.png
+│   └── mcp-nexus-demo.gif
 ├── app.py              # Streamlit app (primary entry point)
-├── main.py             # CLI for debugging the agent from the terminal
-├── test_clone_agent.py # CLI for testing the clone → agent pipeline on an external repo
+├── main.py              # CLI for debugging the agent from the terminal
+├── test_clone_agent.py  # CLI for testing the clone → agent pipeline
 ├── Dockerfile
+├── .dockerignore
+├── .gitignore
 ├── pyproject.toml
+├── requirements.txt
+├── uv.lock
+├── LICENSE
 └── README.md
 ```
 
-<br>
+---
 
 ## Known Limitations
 
-- Retrieval threshold (0.35) is heuristic, not yet validated at scale
+- The 0.35 retrieval threshold is heuristic and has not yet been validated at large scale
 - Agent tool-calling reliability depends on the selected LLM
-- Very large repositories may need extra optimization for cloning/indexing
-- 26-scenario eval suite is broad but still relatively small
+- Very large repositories may require additional optimization for cloning, indexing, and exploration
+- The current agent evaluation contains 26 scenarios and can be expanded with more adversarial and real-world cases
+- The evaluation is currently CLI-based rather than integrated into the Streamlit interface
+- FAISS indexes and cloned repositories are local application data rather than a centralized production vector/database service
 
-<br>
+---
+
+## Future Improvements
+
+- Expand the agent evaluation dataset
+- Add more adversarial security tests
+- Improve retrieval threshold calibration
+- Add repository-level caching
+- Add observability and tracing
+- Support private repository authentication
+- Optimize large-repository indexing
+- Add persistent production storage
+- Add automated CI evaluation
+- Improve deployment architecture for multi-user workloads
+
+---
 
 ## Author
 
 **Rajeev Kumar**
 B.S. Data Science and Applications — IIT Madras
 
-[GitHub](https://github.com/21f3001527) · [LinkedIn](https://linkedin.com/in/rajeev245)
+<p align="left">
+  <a href="https://github.com/21f3001527">GitHub</a>
+  &nbsp;•&nbsp;
+  <a href="https://linkedin.com/in/rajeev245">LinkedIn</a>
+</p>
 
-<br>
+---
 
 ## License
 
-MIT
+This project is licensed under the [MIT License](LICENSE).
